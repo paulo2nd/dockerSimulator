@@ -1,0 +1,46 @@
+version: '3.7'
+
+services:
+  db:
+    container_name: simulatorDb
+    image: mariadb
+    restart: always
+    ports:
+      - 8889:3306
+    environment:
+      MYSQL_DATABASE: simulador
+      MYSQL_USER: simulator
+      MYSQL_PASSWORD: 3Hpyz3Rd
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./data:/var/lib/mysql
+    networks:
+      - simulator-network
+
+  frontend:
+    container_name: simulatorFront
+    image: nginx
+    volumes:
+      - ./frontend/dist:/var/www/
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    ports:
+      - "4200:80"
+    networks:
+      - simulator-network
+
+  simulador-webapi:
+    container_name: simulatorback
+    image: simulatorback
+    ports:
+      - "5001:80"
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    depends_on:
+      - db
+    networks:
+      - simulator-network
+
+networks:
+  simulator-network:
+    driver: bridge
