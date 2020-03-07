@@ -6,7 +6,7 @@ services:
     image: mysql
     restart: always
     ports:
-      - 8889:3306
+      - "8889:3306"
     environment:
       MYSQL_DATABASE: simulador
       MYSQL_USER: simulator
