@@ -21,7 +21,7 @@ services:
     container_name: simulatorFront
     image: nginx
     volumes:
-      - ./frontend/dist:/var/www/
+      - ./frontend/dist/Simulador-Web:/var/www/
       - ./nginx/conf.d/:/etc/nginx/conf.d/
     ports:
       - "4200:80"
