@@ -3,7 +3,7 @@ version: '3.7'
 services:
   db:
     container_name: simulatorDb
-    image: mariadb
+    image: mysql
     restart: always
     ports:
       - 8889:3306
